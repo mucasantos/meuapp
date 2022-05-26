@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:meuapp/mycard.dart';
 
@@ -32,6 +34,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  TextEditingController nome = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController telefone = TextEditingController();
+
+  List<Mycard> meusContatos = [];
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -45,17 +53,71 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: ListView(
+        child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //Text('Novo Contato'),
+
             Container(
-              height: 180,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextField(
+                    controller: nome,
+                    decoration: InputDecoration(
+                      hintText: 'Nome',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    controller: email,
+                    decoration: InputDecoration(
+                      hintText: 'E-mail',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    controller: telefone,
+                    decoration: InputDecoration(
+                      hintText: 'Telefone',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Mycard(
-              nome: "samuel",
-              email: "muca@emaiol.com",
-              telefone: _counter.toString(),
+
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      meusContatos.add(Mycard(
+                        nome: nome.text,
+                        email: email.text,
+                        telefone: telefone.text,
+                      ));
+                    });
+                  },
+                  child: const Text('Salvar')),
+            ),
+            Expanded(
+              flex: 2,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  // physics: ScrollPhysics(),
+                  itemCount: meusContatos.length,
+                  itemBuilder: ((context, index) {
+                    return meusContatos[index];
+                  })),
             ),
           ],
         ),

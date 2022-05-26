@@ -30,7 +30,7 @@ class Mycard extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       margin: const EdgeInsets.all(16.0),
       decoration: const BoxDecoration(
-          color: Colors.blue,
+          color: Colors.lightGreen,
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
